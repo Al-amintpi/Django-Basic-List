@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>hi</title>
+</head>
+<body>
+	
+	<!-- {% for i in small %}
+	 <h4>{{ i.number_of_comments }}</h4>
+	{% endfor %}
+	
+	<h4> comment heigest comment </h4>
+
+	{% for i in big %}
+	 <h4>{{ i.number_of_comments }}</h4>
+	{% endfor %} -->
+       <!-- {% for i in qs %}
+         <h3>{{ i.headline }}</h3>
+       {% endfor %}
+ -->
+	<!-- {% for i in u %}
+	 <h3>{{ i.headline }}</h3>
+	 <p>{{ i.body_text }}</p>
+	{% endfor %} -->
+	<!-- {{ comqs.headline }} -->
+    <!-- {% for i in pk %}
+      <h3>{{ i.name }}</h3>
+      <p>{{ i.tagline }}</p>
+     {% endfor %} -->
+	<!-- {% for i in delta %}
+	 <h3> mode date: {{ i.mod_date|date:'d M Y'}}</h3>
+	 <h4>Publishe date: {{ i.pub_date|date:'d M Y'}}</h4>
+
+	{% endfor %} -->
+     <!-- {% for i in Fspan %}
+      <h3>{{ i.blog }}</h3>
+      {%for m in i.authors.all %}
+       <p>{{ m.name }}</p>
+       {% endfor %}
+     {% endfor %}
+ -->
+     <!-- {% for i in Fsub %}
+      <h3>{{ i.number_of_comments }}</h3>
+      <h4>{{ i.number_of_pingbacks }}</h4>
+     {% endfor %} -->
+
+	<!-- {% for i in Fadd %}
+	 <h3>Rating : {{ i.rating }}</h3>
+	 <h4>comments : {{ i.number_of_comments }}</h4>
+	 <h5> pingbacks: {{ i.number_of_pingbacks }}</h5>
+	{% endfor %} -->
+
+	<!-- {% for i in Fmulti %}
+	 number : <h4>{{ i.number_of_comments }}</h4>
+	 pingbacks : <h5>{{ i.number_of_pingbacks }}</h5>
+	{% endfor %}
+ -->
+	<!-- {% for i in Fqs %}
+
+	 number : <h4>{{ i.number_of_comments }}</h4>
+	 pingbacks : <h5>{{ i.number_of_pingbacks }}</h5>
+
+	{% endfor %}
+ -->
+	<!-- {% for i in spaningqs %}
+	 <h4>{{ i.name }}</h4>
+	 <p>{{ i.tagline }}</p>
+	{% endfor %} -->
+<!--   {% for i in nullqs1 %}
+   <h4>{{ i.name }}</h4>
+    <p>{{ i.tagline }}</p>
+  {%endfor%} -->
+
+	<!-- {% for i in nullqs %}
+	 <h4>Name : {{ i.name }}</h4>
+	 <p>Tagname : {{ i.tagline }}</p>
+	{% endfor %} -->
+
+	<!-- {% for i in qs %}
+	 {{ i.name }},
+	 {{ i.tagline }}
+	{% endfor %} -->
+	<!-- {% for i in obj %}
+	 <h3>{{ i.name }}</h3>	
+	 <p>{{ i.tagline }}</p>
+	{% endfor %} -->
+	<!-- {{ blog.name }} -->
+
+	<h3>create object</h3>
+    {% for i in comqs %}
+      <h4>{{ i.id }}</h4>
+      <h3>Name : {{ i.headline }}</h3>
+    {% endfor %}
+
+     <!-- <h4>date filter</h4>
+      {% for i in entry %}
+       <h4>{{ i.headline }}</h4>
+      {% endfor %} -->
+</body>
+</html>
+

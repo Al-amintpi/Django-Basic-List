@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Updated form</title>
+</head>
+<body>
+
+	<h3>Updated form</h3>
+	{{ object.id }}
+	<h4>{{ object.content }}</h4>
+
+	<form method="POST" action=".">
+		{% csrf_token %}
+		{{ form }}
+		<button class="submit">submit</button>
+	</form>
+
+</body>
+</html>

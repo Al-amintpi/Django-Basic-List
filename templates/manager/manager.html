@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manager details</title>
+</head>
+<body>
+
+<h4> Total Senior Employee </h4>
+{{ total_senior_employee }}
+
+
+<h4> Total Junior Employee </h4>
+{% for i in total_junior_employee %}
+ <h5>{{ i.first_name }}</h5>
+ <h5>{{ i.last_name }}</h5>
+ <h5>{{ i.email }}</h5>
+{% endfor %}
+  <h4>.............Title count ............</h4>
+   {{ title_count }}
+ 
+ <h4>---------------------First name ---------------</h4>
+  {% for i in employee %}
+  {{ i.email}}
+  {% endfor %} 
+
+  <h4>............Admin post .........</h4>
+  {% for i in article %}
+  <h2>{{ i.created_by|capfirst }}</h2>
+   <h3>{{ i.content|truncatechars:10 }}</h3>
+   <p>{{ i.created_date|date:'d M Y' }}</p>
+  {% endfor %}
+</body>
+</html>
