@@ -10,7 +10,11 @@ from .models import Blog, Author, Entry, ThemeBlog
 
 	
 
+def handler404(request, *args, **kwargs):
+	return render(request, '404.html')
 
+def handler500(request, *args, **kwargs):
+	return render(request, '500.html')
 
 
 
