@@ -16,3 +16,5 @@ class PollHistoryAdmin(SimpleHistoryAdmin):
 admin.site.register(Poll, PollHistoryAdmin)
 admin.site.register(Choice, SimpleHistoryAdmin)
 
+from QueryApp.models import PointOfInterest
+admin.site.register(PointOfInterest)

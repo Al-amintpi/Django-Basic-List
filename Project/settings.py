@@ -24,6 +24,7 @@ SECRET_KEY = '_*_4ayif9=y^r(oef=spvc90^i_$q%kt4(w)!96q(%s9xmngl0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ProjectApp',
     'QueryApp',
-    "geoposition",
+    "geoposition", #add GEo location
     'simple_history',
     
 ]
@@ -121,7 +122,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyD1XLrpcastiVf8vyqgTVWztH5XuFeBguA'
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyD1XLrpcastiVf8vyqgTVWztH5XuFeBguA' #Geolocation Google api key two api install 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

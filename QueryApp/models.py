@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from geoposition.fields import GeopositionField
+
 
 
 
@@ -50,6 +50,13 @@ class ExampleBlog(models.Model):
 
 
 
+
+#-------------------------Django Geolocation--------------------
+from geoposition.fields import GeopositionField
+
+class PointOfInterest(models.Model):
+    name = models.CharField(max_length=100)
+    position = GeopositionField() 
 
           
 
