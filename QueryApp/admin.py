@@ -11,10 +11,15 @@ from QueryApp.models import Poll, Choice
 
 class PollHistoryAdmin(SimpleHistoryAdmin):
     list_display = ["id", "question", "pub_date"]
-    history_list_display = ["status"]
+    history_list_display = ["question"]
 
 admin.site.register(Poll, PollHistoryAdmin)
-admin.site.register(Choice, SimpleHistoryAdmin)
+
+class ChoiceAdmin(SimpleHistoryAdmin):
+	list_display = ["id", "poll", "choice_text"]
+	history_list_display = ["choice_text"]
+
+admin.site.register(Choice, ChoiceAdmin)
 
 from QueryApp.models import PointOfInterest
 admin.site.register(PointOfInterest)

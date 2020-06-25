@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
+from decouple import config, Csv
 
 import os
 
@@ -20,13 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_*_4ayif9=y^r(oef=spvc90^i_$q%kt4(w)!96q(%s9xmngl0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-DEBUG = True
+#DEBUG = False
+#DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -81,12 +81,18 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+#SECRET_KEY = '_*_4ayif9=y^r(oef=spvc90^i_$q%kt4(w)!96q(%s9xmngl0'
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
+
 
 
 # Password validation

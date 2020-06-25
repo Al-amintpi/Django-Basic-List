@@ -69,7 +69,7 @@ class Poll(models.Model):
     pub_date = models.DateTimeField('date published')
     history = HistoricalRecords()
     def __str__(self):
-        return self.question
+        return str(self.question)
 
 class Choice(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
