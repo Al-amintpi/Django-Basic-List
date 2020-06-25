@@ -5,7 +5,7 @@ from datetime import timedelta, datetime, date
 from django.db.models import F
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .models import Blog, Author, Entry, ThemeBlog
+from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice
 # Create your views here.
 
 	
