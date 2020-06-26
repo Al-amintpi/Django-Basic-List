@@ -5,5 +5,6 @@ from.import views
 
 urlpatterns = [
        path('home_page/', views.index, name="home"),
+       path('photo_url/', views.get_photo, name="photo"),   
 ]
 

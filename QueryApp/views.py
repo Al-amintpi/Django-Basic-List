@@ -4,10 +4,25 @@ import datetime
 from datetime import timedelta, datetime, date
 from django.db.models import F
 from django.db.models import Q
-from django.shortcuts import render, redirect
-from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice, Photo
+from .forms import PhotoForm
 # Create your views here.
-
+def get_photo(request):
+	photos = Photo.objects.all()
+	if request.method == 'POST':
+		form = PhotoForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return redirect('photo')
+	else:
+		form = PhotoForm()
+	context = {
+	   "form":form,
+	   "photos":photos
+	}	
+	return render(request, 'fileupload.html', context)
+	
 	
 
 def handler404(request, *args, **kwargs):

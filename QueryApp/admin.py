@@ -1,5 +1,5 @@
 from django.contrib import admin
-from QueryApp.models import Blog, Author, Entry, ThemeBlog
+from QueryApp.models import Blog, Author, Entry, ThemeBlog, Photo
 # Register your models here.
 admin.site.register(Blog)
 admin.site.register(Author)
@@ -23,3 +23,6 @@ admin.site.register(Choice, ChoiceAdmin)
 
 from QueryApp.models import PointOfInterest
 admin.site.register(PointOfInterest)
+
+
+admin.site.register(Photo)

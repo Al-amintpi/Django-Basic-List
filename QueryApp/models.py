@@ -5,6 +5,17 @@ from django.core.exceptions import ValidationError
 
 
 # Create your models here.
+class Photo(models.Model):
+    file = models.ImageField()
+    
+    def clean(self):
+        if len(self.file) > 1048576:
+            raise ValidationError("This image maximum size 1mb")
+        else:
+            print('fine')    
+
+    
+
 
 
 class Blog(models.Model):
