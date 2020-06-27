@@ -8,6 +8,45 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice, Photo
 from .forms import PhotoForm
 # Create your views here.
+
+import requests
+def get_request(request):
+	response = requests.get('https://cdn.pixabay.com/photo/2013/07/02/22/20/roses-142876_960_720.jpg')
+	payload = {'page':2, 'count':5 }
+	response = requests.get('https://httpbin.org/get', params={'page':2, 'count':5})
+	r = requests.get('http://127.0.0.1:8000/')
+	with open('templates/text.png', 'wb')as f:
+		f.write(response.content)
+	print(response.status_code)
+	print(response.headers)
+	print(response.ok)
+
+	print(response.text)
+	print(response.url)
+	r = requests.get('https://vaid.tech/en/')
+	print(r.cookies)
+	print(r.headers['Content-Type'])
+	print(r.json())
+	print(r.status_code)
+	print(r.encoding)
+    #------------------POST-----------
+	response = requests.post('https://en.wikipedia.org/wiki/Nanotechnology')
+	response.raise_for_status()
+	with open('templates/Nanotechnology.html', 'wb')as f:
+		f.write(response.content)
+
+	url = 'https://httpbin.org/set/cookies/headers'
+	headers = {'user-agent': 'your-own-user-agent/0.0.1'}
+	cookies = {'visit-month': 'March'}
+	req = requests.get(url, headers=headers, cookies=cookies)
+	print(req)
+	return HttpResponse('Http request is :'+ request.method)
+
+
+
+
+
+
 def get_photo(request):
 	photos = Photo.objects.all()
 	if request.method == 'POST':
