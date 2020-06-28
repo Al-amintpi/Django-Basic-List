@@ -18,6 +18,49 @@ from tablib import Dataset
 
 import csv
 import requests
+
+
+
+#django django pdf response (file download and preview in browser both option)
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+
+def download_view(request):
+    person = Person.objects.all()
+    html_string = render_to_string('pdf_template.html', {"person":person})
+
+    html = HTML(string=html_string)
+    html.write_pdf(target='templates/mypdf.pdf');
+
+    fs = FileSystemStorage('templates')
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+        return response
+
+    return response
+
+def preview_view(request):
+	person = Person.objects.all()
+	html_string = render_to_string('pdf_template.html', {"person":person})
+
+	html = HTML(string=html_string)
+	html.write_pdf(target='templates/mypdf.pdf');
+
+	fs = FileSystemStorage('templates')
+	with fs.open('mypdf.pdf') as pdf:
+	    response = HttpResponse(pdf, content_type='application/pdf')
+	    response['Content-Disposition'] = 'inline; filename="mypdf.pdf"'
+	    return response
+
+	return response
+
+def pdf(request):
+	return render(request, 'pdf.html') 
+
+
 #Manually export and import
 def export1(request):
 	model_class=Person

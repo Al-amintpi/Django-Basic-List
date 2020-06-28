@@ -12,7 +12,11 @@ urlpatterns = [
 		path('import_url/', views.importpackage, name="import"),
 		path('export_url1/', views.export1, name="export1"),
 		path('import_url1/', views.import1, name="import1"),
-		path('import_export_show/', views.import_export, name="import_export")
+		path('import_export_show/', views.import_export, name="import_export"),
+		#django pdf
+		path('download_url/', views.download_view, name="download"),
+		path('preview_url/', views.preview_view, name='preview'),
+		path('pdf/', views.pdf, name="pdf_file")
         
 ]
 
