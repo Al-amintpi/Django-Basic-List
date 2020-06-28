@@ -4,8 +4,15 @@ from QueryApp.views import *
 from.import views
 
 urlpatterns = [
-       path('home_page/', views.index, name="home"),
-       path('photo_url/', views.get_photo, name="photo"),
-       path('request_url/', views.get_request, name="request"),   
+		path('home_page/', views.index, name="home"),
+		path('photo_url/', views.get_photo, name="photo"),
+		path('request_url/', views.get_request, name="request"),
+		#export and import
+		path('export_url/', views.export, name="export"),
+		path('import_url/', views.importpackage, name="import"),
+		path('export_url1/', views.export1, name="export1"),
+		path('import_url1/', views.import1, name="import1"),
+		path('import_export_show/', views.import_export, name="import_export")
+        
 ]
 

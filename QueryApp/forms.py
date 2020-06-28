@@ -8,13 +8,11 @@ from .models import Photo
 
 class PhotoForm(forms.ModelForm):
     x = forms.FloatField(widget=forms.HiddenInput())
-    print(x)
     y = forms.FloatField(widget=forms.HiddenInput())
-    print(y)
     width = forms.FloatField(widget=forms.HiddenInput())
-    print(width)
+   
     height = forms.FloatField(widget=forms.HiddenInput())
-    print(height)
+    
 
     class Meta:
         model = Photo

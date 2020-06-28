@@ -1,6 +1,14 @@
 from django.contrib import admin
-from QueryApp.models import Blog, Author, Entry, ThemeBlog, Photo
+
+from QueryApp.models import Blog, Author, Entry, ThemeBlog, Photo, Person
 # Register your models here.
+#django import and export 
+from import_export.admin import ImportExportModelAdmin
+
+@admin.register(Person)
+class PersonAdmin(ImportExportModelAdmin):
+    pass
+
 admin.site.register(Blog)
 admin.site.register(Author)
 admin.site.register(Entry)

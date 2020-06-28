@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Import page</title>
+</head>
+<body>
+    
+   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile">
+    <button type="submit">Upload</button>
+  </form>
+   
+   {% for i in person %}
+    <h2>{{ i.name }}</h2>
+    <h3>{{ i.email }}</h3>
+    <h4>{{ i.birth_date }}</h4>
+    <p>{{ i.location }}</p>
+   {% endfor %}
+</body>
+</html>

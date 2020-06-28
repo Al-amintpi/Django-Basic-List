@@ -9,8 +9,93 @@ from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice, Photo
 from .forms import PhotoForm
 # Create your views here.
 
+#django import and export
+from django.http import HttpResponse
+from .resources import PersonResource
+from .models import Person
+
+from tablib import Dataset
+
+import csv
 import requests
+#Manually export and import
+def export1(request):
+	model_class=Person
+	meta = model_class._meta
+	field_names = [field.name for field in meta.fields]
+	
+	with open('templates/export.csv', 'w')as f:
+		writer = csv.writer(f)
+
+		writer.writerow(field_names)
+		for obj in model_class.objects.all():
+			row = writer.writerow([getattr(obj, field) for field in field_names])
+			
+
+	return redirect('import_export')
+
+def import1(request):
+	person = Person.objects.all()
+	with open('templates/persons.csv', 'r')as f:
+		read = csv.reader(f)
+		objs = [
+			Person(
+				name=i[0],
+				email=i[1],
+				location=i[2]
+			)
+			for i in read
+		]
+
+		persons = Person.objects.bulk_create(objs)
+			
+	return redirect('import_export')
+
+
+def import_export(request):
+	person = Person.objects.all()
+	return render(request, 'import_export.html', {'person':person})
+ 	
+#Package import and export
+
+def importpackage(request):
+	person = Person.objects.all()
+	print(person)
+	if request.method == 'POST':
+	    person_resource = PersonResource()
+	    dataset = Dataset()
+	    new_persons = request.FILES['myfile']
+
+	    imported_data = dataset.load(new_persons.read().decode('utf-8'),format='csv')
+	    result = person_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+	    if not result.has_errors():
+	        person_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+	return render(request, 'import.html', {"person":person})
+
+
+def export(request):
+    person_resource = PersonResource()
+    dataset = person_resource.export()
+    # response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    # response['Content-Disposition'] = 'attachment; filename="persons.xls"'
+    # response = HttpResponse(dataset.json, content_type='application/json')
+    # response['Content-Disposition'] = 'attachment; filename="persons.json"'
+    response = HttpResponse(dataset.csv, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="persons.csv"'
+    return response
+
+
 def get_request(request):
+	
+
+	with open('templates/csv.txt', 'w')as f:
+		field = ['serialnumber', 'name', 'email']
+		write = csv.DictWriter(f, fieldnames=field)
+		write.writeheader()
+		write.writerow({'serialnumber':'2', 'name':'alamin2', 'email':'alamin@gmail.com'})	
+
 	response = requests.get('https://cdn.pixabay.com/photo/2013/07/02/22/20/roses-142876_960_720.jpg')
 	payload = {'page':2, 'count':5 }
 	response = requests.get('https://httpbin.org/get', params={'page':2, 'count':5})

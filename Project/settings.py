@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'QueryApp',
     "geoposition", #add GEo location
     'simple_history',
+    'import_export', 
+    #pip install django-import-export tarpor install app import korte hoba
     
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True   #django import and export
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
