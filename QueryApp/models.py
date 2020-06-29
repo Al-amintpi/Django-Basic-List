@@ -43,7 +43,7 @@ class Entry(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='entries')
     headline = models.CharField(max_length=255)
     body_text = models.TextField()
-    pub_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField(null=True)
     mod_date = models.DateField(null=True)
     authors = models.ManyToManyField(Author)
     number_of_comments = models.IntegerField(blank=True, null=True)
