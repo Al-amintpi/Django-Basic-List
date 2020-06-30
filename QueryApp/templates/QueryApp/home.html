@@ -1,9 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery.js'%}"></script>
+    
 	<title>hi</title>
 </head>
 <body>
+	<p>Access a JSON object using dot notation:</p>
+    <p id="demo"></p>
+
+
+<script type="text/javascript">
+	// JSON data type
+	// string type
+	// { "name":"John" },
+	//number type
+	// { "age":30 }
+	// JSON Objects
+	//   {
+ //       "employee":{ "name":"John", "age":30, "city":"New York" }
+ //      }
+ //    JSON Arrays
+	//     {
+	//     "employees":[ "John", "Anna", "Peter" ]
+	//    }
+      
+
+	var obj , x;
+	obj = {"name":"alamin", "age":23, "profession":null}
+	x = obj.name;
+   document.getElementById("demo").innerHTML=x;
+
+</script>
+
+
 	
 	<!-- {% for i in small %}
 	 <h4>{{ i.number_of_comments }}</h4>

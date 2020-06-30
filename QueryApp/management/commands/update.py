@@ -12,4 +12,4 @@ def datetime():
 
 class Command(BaseCommand):
     def handle(self,*args, **kwargs):
-        pass
+        datetime()

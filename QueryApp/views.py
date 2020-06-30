@@ -131,44 +131,49 @@ def export(request):
 
 
 def get_request(request):
-	
+	response = requests.get('https://httpbin.org/get', params={"page":2, "count":2})
+	print(response.json())
+	print('Http response code', response.status_code)
+	#print('headers')
 
-	with open('templates/csv.txt', 'w')as f:
-		field = ['serialnumber', 'name', 'email']
-		write = csv.DictWriter(f, fieldnames=field)
-		write.writeheader()
-		write.writerow({'serialnumber':'2', 'name':'alamin2', 'email':'alamin@gmail.com'})	
 
-	response = requests.get('https://cdn.pixabay.com/photo/2013/07/02/22/20/roses-142876_960_720.jpg')
-	payload = {'page':2, 'count':5 }
-	response = requests.get('https://httpbin.org/get', params={'page':2, 'count':5})
-	r = requests.get('http://127.0.0.1:8000/')
-	with open('templates/text.png', 'wb')as f:
-		f.write(response.content)
-	print(response.status_code)
-	print(response.headers)
-	print(response.ok)
+	# with open('templates/csv.txt', 'w')as f:
+	# 	field = ['serialnumber', 'name', 'email']
+	# 	write = csv.DictWriter(f, fieldnames=field)
+	# 	write.writeheader()
+	# 	write.writerow({'serialnumber':'2', 'name':'alamin2', 'email':'alamin@gmail.com'})	
 
-	print(response.text)
-	print(response.url)
-	r = requests.get('https://vaid.tech/en/')
-	print(r.cookies)
-	print(r.headers['Content-Type'])
-	print(r.json())
-	print(r.status_code)
-	print(r.encoding)
-    #------------------POST-----------
-	response = requests.post('https://en.wikipedia.org/wiki/Nanotechnology')
-	response.raise_for_status()
-	with open('templates/Nanotechnology.html', 'wb')as f:
-		f.write(response.content)
+	# response = requests.get('https://cdn.pixabay.com/photo/2013/07/02/22/20/roses-142876_960_720.jpg')
+	# payload = {'page':2, 'count':5 }
+	# response = requests.get('https://httpbin.org/get', params={'page':2, 'count':5})
+	# r = requests.get('http://127.0.0.1:8000/')
+	# with open('templates/text.png', 'wb')as f:
+	# 	f.write(response.content)
+	# print(response.status_code)
+	# print(response.headers)
+	# print(response.ok)
 
-	url = 'https://httpbin.org/set/cookies/headers'
-	headers = {'user-agent': 'your-own-user-agent/0.0.1'}
-	cookies = {'visit-month': 'March'}
-	req = requests.get(url, headers=headers, cookies=cookies)
-	print(req)
-	return HttpResponse('Http request is :'+ request.method)
+	# print(response.text)
+	# print(response.url)
+	# r = requests.get('https://vaid.tech/en/')
+	# print(r.cookies)
+	# print(r.headers['Content-Type'])
+	# print(r.json())
+	# print(r.status_code)
+	# print(r.encoding)
+     #------------------POST-----------
+	# response = requests.post('https://en.wikipedia.org/wiki/Nanotechnology')
+	# response.raise_for_status()
+	# with open('templates/Nanotechnology.html', 'wb')as f:
+	# 	f.write(response.content)
+
+	# url = 'https://httpbin.org/set/cookies/headers'
+	# headers = {'user-agent': 'your-own-user-agent/0.0.1'}
+	# cookies = {'visit-month': 'March'}
+	# req = requests.get(url, headers=headers, cookies=cookies)
+	# print(req)
+	#return HttpResponse('Http request is :'+ request.method)
+	return HttpResponse("abcd")
 
 
 
