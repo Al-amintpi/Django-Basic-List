@@ -134,7 +134,7 @@ def get_request(request):
 	response = requests.get('https://httpbin.org/get', params={"page":2, "count":2})
 	print(response.json())
 	print('Http response code', response.status_code)
-	#print('headers')
+	
 
 
 	# with open('templates/csv.txt', 'w')as f:
