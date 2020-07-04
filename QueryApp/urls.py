@@ -5,6 +5,7 @@ from.import views
 
 urlpatterns = [
 		path('home_page/', views.index, name="home"),
+		path('person/', views.test_post_view, name='person'),
 		path('photo_url/', views.get_photo, name="photo"),
 		path('request_url/', views.get_request, name="request"),
 		#export and import

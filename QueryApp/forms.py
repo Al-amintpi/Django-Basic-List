@@ -3,7 +3,17 @@ from PIL import Image
 from django import forms
 from django.core.files import File
 
-from .models import Photo
+from  QueryApp.models import Photo, Person
+
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = [
+           'profile',
+           'name',
+           'email',
+           'location',
+        ]
 
 
 class PhotoForm(forms.ModelForm):

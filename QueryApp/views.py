@@ -206,8 +206,10 @@ def handler500(request, *args, **kwargs):
 
 
 
+from django.contrib.auth.decorators import login_required
 
 def index(request):
+	blog = Blog.objects.all()
 	# blog = Blog.object.all()[:5] #Limiting QuerySets ,[5:10]
 	# blog = Blog.objects.filter(name="new")
 	# entry = Entry.objects.filter(pub_date__year=2020)
@@ -269,7 +271,7 @@ def index(request):
 	# single = Blog.objects.get(id=13)
 	# qs = single.entry_set.filter(headline__contains='new headline')
 	# print(single.entry_set.count())
-	# related_name = Blog.objects.get(id=13)
+	# related_name = Blog.objects.get(id=18)
 	# qs = related_name.entries.all()
 	# print(qs)
 
@@ -304,10 +306,10 @@ def index(request):
 	# min_comment = Blog.objects.annotate(min_comment_blog=Sum('entries__number_of_comments')).filter(min_comment_blog__isnull=False).order_by('min_comment_blog')[0]
 	# print(min_comment)
 
-	max1_comment = Blog.objects.annotate(max1_comment1_blog=Max('entries__number_of_comments')).filter(max1_comment1_blog__isnull=False).order_by('-max1_comment1_blog')
-	print("Max1_comment", max1_comment)
-	for maxcomment in max1_comment:
-		print("sorted-by", maxcomment, maxcomment.max1_comment1_blog)
+	# max1_comment = Blog.objects.annotate(max1_comment1_blog=Max('entries__number_of_comments')).filter(max1_comment1_blog__isnull=False).order_by('-max1_comment1_blog')
+	# print("Max1_comment", max1_comment)
+	# for maxcomment in max1_comment:
+	# 	print("sorted-by", maxcomment, maxcomment.max1_comment1_blog)
 
 	#Django queryset api dates
 
@@ -321,7 +323,8 @@ def index(request):
 	#Entry.objects.filter(pub_date__time__range=(datetime.time(8), datetime.time(17)))#probleam
 	#entry = Entry.objects.filter(pub_date__timestamp__hour=23)
 	context = {
-		# 'qs':qs,
+	    "blog":blog,
+		#'qs':qs,
 		# 'u':u,
 		# 'comqs':comqs,
 		# 'pk':pk,
@@ -344,5 +347,19 @@ def index(request):
 	return render(request, 'QueryApp/home.html', context)
 
 
+from QueryApp.forms import PersonForm
+def test_post_view(request):
+	if request.method == "POST":
+		form = PersonForm(request.POST)
+		if form.is_valid():
+			form.save()
+	else:
+		form = PersonForm()	
+			
+	context  = {
+	   "form":form
+	}			
+
+	return render(request, 'QueryApp/person.html', context)
 
 

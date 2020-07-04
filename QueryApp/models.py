@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 #django import and export
 class Person(models.Model):
+    profile = models.ForeignKey('Author', on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
     location = models.CharField(max_length=100, blank=True)
@@ -20,12 +21,10 @@ class Photo(models.Model):
             print('fine')    
 
     
-
-
-
 class Blog(models.Model):
     name = models.CharField(max_length=100)
     tagline = models.TextField()
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -43,13 +42,15 @@ class Entry(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='entries')
     headline = models.CharField(max_length=255)
     body_text = models.TextField()
-    pub_date = models.DateTimeField(null=True)
-    mod_date = models.DateField(null=True)
+    pub_date = models.DateTimeField()
+    mod_date = models.DateTimeField()
     authors = models.ManyToManyField(Author)
     number_of_comments = models.IntegerField(blank=True, null=True)
     number_of_pingbacks = models.IntegerField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "entries"
     
 
     def __str__(self):

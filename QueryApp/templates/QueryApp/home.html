@@ -12,8 +12,12 @@
 	<title>hi</title>
 </head>
 <body>
-	<p>Access a JSON object using dot notation:</p>
-    <p id="demo"></p>
+	<h4>Home page show.......</h4>
+   {% for instance in blog %}
+   <h5> name : {{ instance.name }}</h5>
+   <p> name :{{ instance.email }}</p>
+
+   {% endfor %}
 
 
 <script type="text/javascript">
@@ -122,11 +126,11 @@
 	{% endfor %} -->
 	<!-- {{ blog.name }} -->
 
-	<h3>create object</h3>
+	<!-- <h3>create object</h3>
     {% for i in comqs %}
       <h4>{{ i.id }}</h4>
       <h3>Name : {{ i.headline }}</h3>
-    {% endfor %}
+    {% endfor %} -->
 
      <!-- <h4>date filter</h4>
       {% for i in entry %}
