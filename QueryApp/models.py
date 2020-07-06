@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 
 #django import and export
 class Person(models.Model):
-    profile = models.ForeignKey('Author', on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
     location = models.CharField(max_length=100, blank=True)

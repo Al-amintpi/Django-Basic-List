@@ -9,7 +9,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = [
-           'profile',
+           
            'name',
            'email',
            'location',

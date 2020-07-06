@@ -4,13 +4,13 @@ import datetime
 from datetime import timedelta, datetime, date
 from django.db.models import F
 from django.db.models import Q
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice, Photo
 from .forms import PhotoForm
 # Create your views here.
 
 #django import and export
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .resources import PersonResource
 from .models import Person
 
@@ -347,19 +347,47 @@ def index(request):
 	return render(request, 'QueryApp/home.html', context)
 
 
-from QueryApp.forms import PersonForm
-def test_post_view(request):
-	if request.method == "POST":
-		form = PersonForm(request.POST)
-		if form.is_valid():
-			form.save()
+#ai view ta json datagula ke just show korei template te
+def get_objects_temp_show(request):	
+	return render(request, 'QueryApp/person.html')
+
+
+# ai view theke get kore json format te object gula ke show korano hossche
+def get_object_json_format(request):
+	queryset = list(Person.objects.values('id', 'name', 'email', 'location'))
+	return  JsonResponse(queryset, safe=False)
+
+
+#a view ea POST o UPDATE kora hossche
+def get_post_or_update(request):
+	obj_id = request.POST.get('obj_id', None)
+	name = request.POST.get('name', None)
+	email = request.POST.get('email', None)
+	location = request.POST.get('location', None)
+
+	if obj_id:
+		person_obj = get_object_or_404(Person, id=obj_id)
+		person_obj.name=name
+		person_obj.email=email
+		person_obj.location = location
+		person_obj.save()
 	else:
-		form = PersonForm()	
+		Person.objects.create(name=name, email=email, location=location)
+
+	return JsonResponse({"message": 'success'}, safe=False)
+
+
+
+#a view objects gula ke single vabe JsonResponse kore hossche update somoi a function ke call kore hoba...
+def get_single_object(request, id):
+	person_obj = get_object_or_404(Person, id=id)
+	return JsonResponse({'id':person_obj.id, 'name':person_obj.name, 'email': person_obj.email, 'location': person_obj.location}, safe=False)
+
+
+#a view ta objects gula ke delete kora hossche
+def get_delete_view(request, id):
+	person_obj_delete = get_object_or_404(Person, id=id)
+	person_obj_delete.delete()
+	return redirect('home')
+
 			
-	context  = {
-	   "form":form
-	}			
-
-	return render(request, 'QueryApp/person.html', context)
-
-

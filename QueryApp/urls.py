@@ -5,7 +5,12 @@ from.import views
 
 urlpatterns = [
 		path('home_page/', views.index, name="home"),
-		path('person/', views.test_post_view, name='person'),
+		path('objects_temp_show/', views.get_objects_temp_show, name='objects_temp_show'),
+		path('object_json_format/', views.get_object_json_format, name='object_json_format'),
+		path('post_or_update/', views.get_post_or_update, name='post_or_update'),
+		path('single_object/<int:id>/', views.get_single_object, name="single_object"),
+		path('delete/<int:id>/', views.get_delete_view, name="delete"),
+		
 		path('photo_url/', views.get_photo, name="photo"),
 		path('request_url/', views.get_request, name="request"),
 		#export and import

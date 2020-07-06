@@ -1,15 +1,167 @@
 <!DOCTYPE html>
+{%load static%}
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}">
+
+		
+	</script>
+
+
 	<title>Person Page </title>
 </head>
 <body>
-       alamin
-       <form method="POST">
-       	{% csrf_token %}
-       	{{form}}
-       	<button type="submit">submit</button>
-       	
-       </form>
+
+<form method="POST" class="person">
+   	{% csrf_token %}
+   	<input type="text" id="name" name="name">
+   	<input type="text" id="email" name="email">
+   	<input type="text" id="location" name="location">
+   	<input type="hidden" name="obj_id" id="obj_id" value="">
+   	<button type="submit">submit</button>
+   
+</form>
+<div id="name">
+	
+</div>
+  <table class="table table-bordered simple-table">
+    <tr>
+    <th>name</th>
+    <th>email</th>
+    <th>location</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    </tr>
+  <tr>
+     
+     
+  </tr>
+  </table>
+
+  
+   
+<script type="text/javascript">
+ var get_update_csrf = '{{ csrf_token }}'
+
+ // -------- step#1 get diay object gule template show kore hossche request-----------
+
+$(document).ready(function(){
+var url = {% url 'object_json_format' %}
+ 	$.ajax({
+        type:'GET',
+        url:url,
+        data:'json',
+        success:function(data)
+        {
+        console.log(data);
+        if(data.length > 0)
+        {
+           $.each(data, function(i, item)
+           {
+	         $('.simple-table').append("<tr><td>"+item.name+"</td><td>"+item.email+"</td><td>"+item.location+"</td><td>"
+	         	+("<button class='editbutton' data-id="+item.id +">Edit</button>")+
+	         	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+item.id+">Delete</button>")+"</td></tr>")
+
+            })
+        }else{
+     		console.log('No data');
+            }	
+        },
+        error:function(data){
+        	console.log("failed");
+        }
+ 	});
+ });
+
+
+ //------------------update-------------------------------
+
+// id ta neya oi ta id tar value gula form show korano hoyacha GET diya
+$(document).on('click', '.editbutton', function(){
+   	var id = $(this).data("id")
+   	var url = '/single_object/'+id+'/'
+
+   	$.ajax({
+   		url : url,
+   		type : 'GET',
+   		success:function(data){
+	   		$("#name").val(data.name)
+	   		$("#email").val(data.email)
+	   		$('#location').val(data.location)
+	   		$('#obj_id').val(data.id)
+   		},
+   		error:function(data)
+   		{
+   			console.log('failed')
+   		}
+   		});   	 
+   });
+
+// value ke update kore post kore hoya ache
+$('.person').on('submit', function(event){
+   		event.preventDefault()
+	   	var url = {% url 'post_or_update' %}
+	   	var data = $('.person').serialize();
+	   	$.ajax({
+	   		type:'POST',
+	   		url:url,
+	   		data:data,
+	   		beforeSend:function(xhr){
+	        xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+	        },
+
+	   	success:function(data)
+	   	    {
+   			console.log(data);	
+	   		},
+
+   		error:function(data)
+	   		{
+	   		console.log('failed');
+	   		}
+
+	   	});
+   });
+ 
+
+//------------Delete method----------------
+var delete_fun =function(id)
+   {
+    var leave_api_obj = "{% url 'delete' '0' %}"
+        leave_api_obj = leave_api_obj.slice(0,-2)    //to remove demo value '0' from ur
+        leave_api_obj = leave_api_obj + id +'/'
+        return leave_api_obj    
+    }
+
+$(document).on('click', '.deletebutton', function(){
+	var id = $(this).attr('data-id');
+	var url = delete_fun(id);
+    $('.deletebutton').attr('data-url', url);
+    var main_url = $(this).attr('data-url');
+	    $.ajax({
+	    	url:main_url,
+	    	type:'DELETE',
+	    	beforeSend:function(xhr)
+	    	{
+	          xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+	        },
+
+	        success:function(data)
+	        {
+	        console.log('success');
+	        },
+	        erro:function(data)
+	        {
+            console.log('failed')
+	        }
+	    });
+});
+</script>
 </body>
 </html>
