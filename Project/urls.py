@@ -9,10 +9,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ProjectApp.urls')),
     path('', include('QueryApp.urls')),
+    #drf
+    path('crud/', include(('crudapp.urls', 'crudapp'), namespace='crud_root_app_url')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
+
 
 handler404 = QueryApp.views.handler404
 handler500 = QueryApp.views.handler500
+
 
 if settings.DEBUG:  # if local server
     urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -13,6 +13,7 @@ class PersonForm(forms.ModelForm):
            'name',
            'email',
            'location',
+           'file'
         ]
 
 

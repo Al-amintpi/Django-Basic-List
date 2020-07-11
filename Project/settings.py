@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'import_export', 
     #pip install django-import-export tarpor install app import korte hoba
     
+    #------------drf------
+    'crudapp',
+    'rest_framework',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True   #django import and export
@@ -88,7 +91,8 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 #SECRET_KEY = '_*_4ayif9=y^r(oef=spvc90^i_$q%kt4(w)!96q(%s9xmngl0'
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+#ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = '*'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -140,8 +144,9 @@ GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyD1XLrpcastiVf8vyqgTVWztH5XuFeBguA' #Geo
 STATIC_URL = '/static/'
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media")
+
+MEDIA_URL = '/img/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
 
 STATICFILES_DIRS = [
        os.path.join(BASE_DIR, "static/"),

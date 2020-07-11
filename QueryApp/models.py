@@ -1,13 +1,15 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models.fields.files import ImageFieldFile, FileField
+
+
 
 #django import and export
 class Person(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
     location = models.CharField(max_length=100, blank=True)
-
-
+    file = models.FileField(null=True, blank=True, upload_to='img/')
 
 # Create your models here.
 class Photo(models.Model):

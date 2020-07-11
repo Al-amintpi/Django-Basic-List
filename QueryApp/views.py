@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from .models import Blog, Author, Entry, ThemeBlog, Poll, Choice, Photo
 from .forms import PhotoForm
+from .forms import PersonForm
 # Create your views here.
 
 #django import and export
@@ -349,14 +350,20 @@ def index(request):
 
 #ai view ta json datagula ke just show korei template te
 def get_objects_temp_show(request):	
-	return render(request, 'QueryApp/person.html')
+	person = Person.objects.all()
+
+	return render(request, 'QueryApp/person.html', {'person':person})
 
 
 # ai view theke get kore json format te object gula ke show korano hossche
 def get_object_json_format(request):
-	queryset = list(Person.objects.values('id', 'name', 'email', 'location'))
-	return  JsonResponse(queryset, safe=False)
+	queryset = list(Person.objects.values_list('id', 'name', 'email', 'location','file'))
+	print(queryset)
+	return JsonResponse(queryset,safe=False)
 
+import json
+from django.db.models.fields.files import FileField
+from django.core.serializers.json import DjangoJSONEncoder
 
 #a view ea POST o UPDATE kora hossche
 def get_post_or_update(request):
@@ -364,17 +371,31 @@ def get_post_or_update(request):
 	name = request.POST.get('name', None)
 	email = request.POST.get('email', None)
 	location = request.POST.get('location', None)
+	file = request.FILES.get('file')
+	
+
+	print(file)
 
 	if obj_id:
 		person_obj = get_object_or_404(Person, id=obj_id)
 		person_obj.name=name
 		person_obj.email=email
 		person_obj.location = location
+		person_obj.file = file
 		person_obj.save()
-	else:
-		Person.objects.create(name=name, email=email, location=location)
+		print(person_obj.name)
+		print(person_obj.email)
+		print(person_obj.location)
+		print(person_obj.file)
+		
 
-	return JsonResponse({"message": 'success'}, safe=False)
+	else:
+		person_obj=Person.objects.create(name=name, email=email, location=location, file=file)
+		
+
+	instance={"id": person_obj.id, "name": person_obj.name, "email": person_obj.email, "location": person_obj.location, "file":str(person_obj.file.url)}
+	
+	return JsonResponse(instance, safe=False)
 
 
 

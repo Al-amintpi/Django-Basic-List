@@ -18,16 +18,17 @@
 </head>
 <body>
 
-<form method="POST" class="person">
+<form method="POST" class="person" enctype="multipart/form-data">
    	{% csrf_token %}
    	<input type="text" id="name" name="name">
    	<input type="text" id="email" name="email">
    	<input type="text" id="location" name="location">
    	<input type="hidden" name="obj_id" id="obj_id" value="">
-   	<button type="submit">submit</button>
+   	<input type="file" id='file' name="file">
+   	<button class='.submit' type="submit">submit</button>
    
 </form>
-<div id="name">
+<div class="show">
 	
 </div>
   <table class="table table-bordered simple-table">
@@ -35,16 +36,18 @@
     <th>name</th>
     <th>email</th>
     <th>location</th>
+    <th>file</th>
     <th>Edit</th>
     <th>Delete</th>
     </tr>
+    
   <tr>
      
-     
   </tr>
+  
   </table>
 
-  
+{{ obj.image.url  
    
 <script type="text/javascript">
  var get_update_csrf = '{{ csrf_token }}'
@@ -52,23 +55,22 @@
  // -------- step#1 get diay object gule template show kore hossche request-----------
 
 $(document).ready(function(){
-var url = {% url 'object_json_format' %}
+var url = "{% url 'object_json_format' %}"
+console.log(url);
  	$.ajax({
         type:'GET',
         url:url,
         data:'json',
-        success:function(data)
-        {
-        console.log(data);
+        success:function(data){
         if(data.length > 0)
         {
-           $.each(data, function(i, item)
-           {
-	         $('.simple-table').append("<tr><td>"+item.name+"</td><td>"+item.email+"</td><td>"+item.location+"</td><td>"
+           $.each(data, function(i, item){
+            
+	         $('.simple-table').append("<tr id='"+item.id+"'><td>"+item.name+"</td><td>"+item.email+"</td><td>"+item.location+"</td><td>"+("<img src='"+item.file+"'>")+"</td><td>"
 	         	+("<button class='editbutton' data-id="+item.id +">Edit</button>")+
 	         	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+item.id+">Delete</button>")+"</td></tr>")
 
-            })
+             })
         }else{
      		console.log('No data');
             }	
@@ -95,10 +97,12 @@ $(document).on('click', '.editbutton', function(){
 	   		$("#email").val(data.email)
 	   		$('#location').val(data.location)
 	   		$('#obj_id').val(data.id)
+        
+         
+
    		},
-   		error:function(data)
-   		{
-   			console.log('failed')
+   		error:function(data){
+   			console.log('failed');
    		}
    		});   	 
    });
@@ -107,18 +111,43 @@ $(document).on('click', '.editbutton', function(){
 $('.person').on('submit', function(event){
    		event.preventDefault()
 	   	var url = {% url 'post_or_update' %}
-	   	var data = $('.person').serialize();
+      var form = $(this)
+	   	var data = new FormData(form[0])
+      console.log(" try data",data);
 	   	$.ajax({
 	   		type:'POST',
-	   		url:url,
-	   		data:data,
+	   		url: url,
+	   		data: data,
+	   		enctype: $('.person').attr('enctype'),
+        async:true,
+        contentType:false,
+        processData:false,
+        cache:false,
 	   		beforeSend:function(xhr){
 	        xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
-	        },
+	      },
+	   		success:function(data){
+            
+          
+	   			if($('.person').find('#obj_id').val()){
+	   				$("#"+$('.person').find('#obj_id').val()).html(
+	   					"<td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"+data.file+"</td><td>"
+	         			+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
+	         			"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td>"
+	   				)
 
-	   	success:function(data)
-	   	    {
-   			console.log(data);	
+	   			console.log('update');	
+	   			}else{
+	   				$('.simple-table').append("<tr><td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"
+              +("<img src='"+data.file+"'>")+"</td><td>"
+	         	+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
+	         	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td></tr>")
+
+	   			}
+	   			console.log('post');
+
+          
+   				
 	   		},
 
    		error:function(data)
@@ -144,6 +173,7 @@ $(document).on('click', '.deletebutton', function(){
 	var url = delete_fun(id);
     $('.deletebutton').attr('data-url', url);
     var main_url = $(this).attr('data-url');
+    console.log(main_url);
 	    $.ajax({
 	    	url:main_url,
 	    	type:'DELETE',
@@ -152,8 +182,8 @@ $(document).on('click', '.deletebutton', function(){
 	          xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
 	        },
 
-	        success:function(data)
-	        {
+	        success:function(data){
+            $('.deletebutton[data-id="'+id+'"]').parent().parent().fadeOut();
 	        console.log('success');
 	        },
 	        erro:function(data)
