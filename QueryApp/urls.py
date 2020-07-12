@@ -22,7 +22,9 @@ urlpatterns = [
 		#django pdf
 		path('download_url/', views.download_view, name="download"),
 		path('preview_url/', views.preview_view, name='preview'),
-		path('pdf/', views.pdf, name="pdf_file")
+		path('pdf/', views.pdf, name="pdf_file"),
+		
+
         
 ]
 

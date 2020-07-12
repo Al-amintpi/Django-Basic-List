@@ -1,0 +1,50 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Translate</title>
+</head>
+<body>
+
+<h1>{% trans "translate this" %}</h1>
+
+	{% get_current_language as LANGUAGE_CODE %} 
+
+    {{ LANGUAGE_CODE }}
+
+    <h1>{{ title }}</h1>
+    
+    <a href="{% url 'admin:index' %}">
+        {% trans '> Admin pages' %}
+    </a> 
+<h1>{% url 'admin:index' %}</h1>
+
+
+ 
+
+
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <select name="language">
+        {% get_current_language as LANGUAGE_CODE %}
+        <h2>{{ LANGUAGE_CODE }}</h2>
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+        <h2>{{ language }}</h2>
+        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+            {{ language.name_local }} ({{ language.code }})
+        </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go">
+</form>
+
+
+{%for post in posts %}
+{{ post.name }}
+{{ post.date }}
+{% endfor %}
+</body>
+</html>

@@ -10,6 +10,7 @@ from ProjectApp.forms import UpdatedForm,CreateForm
 
 
 
+
 def get_manager(request):
 	total_employee = Employee.active_objects.all()
 	total_senior_employee = Employee.senior_objects.all()

@@ -16,11 +16,11 @@ from .resources import PersonResource
 from .models import Person
 
 from tablib import Dataset
-
 import csv
 import requests
 
 
+#--------------------Multi Languages--------------------------
 
 #django django pdf response (file download and preview in browser both option)
 from django.core.files.storage import FileSystemStorage

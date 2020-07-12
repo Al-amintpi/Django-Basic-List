@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #------------drf------
     'crudapp',
     'rest_framework',
+    'base',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True   #django import and export
@@ -55,13 +56,16 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True   #django import and export
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',#here translate
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
     'simple_history.middleware.HistoryRequestMiddleware',#middleware add
     #'ProjectApp.middlewares.StackOverflowMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Project.urls'
@@ -125,7 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE ='en-us'
+#LANGUAGE_CODE = 'bn'
 
 TIME_ZONE = 'UTC'
 
@@ -134,6 +139,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES = [ 
+    ('en', 'English'),
+    ('bn', 'Bangla'), 
+     ]
 
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyD1XLrpcastiVf8vyqgTVWztH5XuFeBguA' #Geolocation Google api key two api install 
@@ -151,3 +161,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
 STATICFILES_DIRS = [
        os.path.join(BASE_DIR, "static/"),
 ]
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale'), ]
+
+#step-1 template create 
