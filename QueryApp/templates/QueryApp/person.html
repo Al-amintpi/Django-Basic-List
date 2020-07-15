@@ -66,7 +66,7 @@ console.log(url);
         {
            $.each(data, function(i, item){
             
-	         $('.simple-table').append("<tr id='"+item.id+"'><td>"+item.name+"</td><td>"+item.email+"</td><td>"+item.location+"</td><td>"+("<img src='"+item.file+"'>")+"</td><td>"
+	         $('.simple-table').append("<tr id='"+item.id+"'><td>"+item.name+"</td><td>"+item.email+"</td><td>"+item.location+ "</td><td>"
 	         	+("<button class='editbutton' data-id="+item.id +">Edit</button>")+
 	         	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+item.id+">Delete</button>")+"</td></tr>")
 
@@ -114,48 +114,48 @@ $('.person').on('submit', function(event){
       var form = $(this)
 	   	var data = new FormData(form[0])
       console.log(" try data",data);
-	   	$.ajax({
-	   		type:'POST',
-	   		url: url,
-	   		data: data,
-	   		enctype: $('.person').attr('enctype'),
-        async:true,
-        contentType:false,
-        processData:false,
-        cache:false,
-	   		beforeSend:function(xhr){
-	        xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
-	      },
-	   		success:function(data){
+	   	// $.ajax({
+	   	// 	type:'POST',
+	   	// 	url: url,
+	   	// 	data: data,
+	   	// 	enctype: $('.person').attr('enctype'),
+     //    async:true,
+     //    contentType:false,
+     //    processData:false,
+     //    cache:false,
+	   	// 	beforeSend:function(xhr){
+	    //     xhr.setRequestHeader("X-CSRFToken", get_update_csrf);
+	    //   },
+	   	// 	success:function(data){
             
           
-	   			if($('.person').find('#obj_id').val()){
-	   				$("#"+$('.person').find('#obj_id').val()).html(
-	   					"<td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"+data.file+"</td><td>"
-	         			+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
-	         			"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td>"
-	   				)
+	   	// 		if($('.person').find('#obj_id').val()){
+	   	// 			$("#"+$('.person').find('#obj_id').val()).html(
+	   	// 				"<td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"+data.file+"</td><td>"
+	    //      			+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
+	    //      			"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td>"
+	   	// 			)
 
-	   			console.log('update');	
-	   			}else{
-	   				$('.simple-table').append("<tr><td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"
-              +("<img src='"+data.file+"'>")+"</td><td>"
-	         	+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
-	         	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td></tr>")
+	   	// 		console.log('update');	
+	   	// 		}else{
+	   	// 			$('.simple-table').append("<tr><td>"+data.name+"</td><td>"+data.email+"</td><td>"+data.location+"</td><td>"
+     //          +("<img src='"+data.file+"'>")+"</td><td>"
+	    //      	+("<button class='editbutton' data-id="+data.id +">Edit</button>")+
+	    //      	"</td><td>"+("<button class='deletebutton' data-url='' data-id="+data.id+">Delete</button>")+"</td></tr>")
 
-	   			}
-	   			console.log('post');
+	   	// 		}
+	   	// 		console.log('post');
 
           
    				
-	   		},
+	   	// 	},
 
-   		error:function(data)
-	   		{
-	   		console.log('failed');
-	   		}
+   		// error:function(data)
+	   	// 	{
+	   	// 	console.log('failed');
+	   	// 	}
 
-	   	});
+	   	// });
    });
  
 

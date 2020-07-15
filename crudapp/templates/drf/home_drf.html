@@ -132,6 +132,7 @@ var this_update_fun =function(id){
 $(document).on('click', '.updatebtn', function(){ 
     var id = $(this).attr('data-id');
     var url = this_update_fun(id)
+    console.log(url);
      $('.updatebutton').attr('data-url', url)
      $('.update').show()
      $('.Person').hide()

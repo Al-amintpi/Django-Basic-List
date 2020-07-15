@@ -20,7 +20,7 @@ import csv
 import requests
 
 
-#--------------------Multi Languages--------------------------
+
 
 #django django pdf response (file download and preview in browser both option)
 from django.core.files.storage import FileSystemStorage

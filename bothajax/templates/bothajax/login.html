@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}">
+	</script>
+
+</head>
+<body>
+
+<div class="show"> </div>
+
+<form method="POST" class="loginform" id="myForm">
+	{% csrf_token %}
+	<input type="user" name="user"><br>
+	<input type="password" name="pass"><br>
+	<input type="submit" name="">
+</form>
+
+<script type="text/javascript">
+	 
+	$(document).on('submit', function(event){
+		event.preventDefault()
+		var url = {% url 'both_login' %}
+		console.log(url);
+		var data = $('.loginform').serialize();	
+		console.log(data)
+		$.ajax({
+			method:'POST',
+			url:url,
+			data:data,
+			success:function(data){
+			if (data.status == 'ok'){
+				$('.show').css('background-color','green').text('succes');
+				$("#myForm")[0].reset();
+			}else{
+				$('.show').css('background-color','red').text('failed');
+			}
+			
+			},
+			error:function(data){
+			 console.log('error');
+			}
+		});
+	});
+	
+</script>
+</body>
+</html>

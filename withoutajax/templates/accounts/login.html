@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}">
+	</script>
+
+</head>
+<body>
+	<form method="POST" class="loginform">
+		{% csrf_token %}
+		<input type="text" name="user"><br>
+		<input type="password" name="pass"><br>
+		<input type="submit" name="">
+	</form>
+
+	<script type="text/javascript">
+		
+		  alert('hi');
+			</script>
+</body>
+</html>

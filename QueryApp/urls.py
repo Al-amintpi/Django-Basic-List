@@ -24,6 +24,7 @@ urlpatterns = [
 		path('preview_url/', views.preview_view, name='preview'),
 		path('pdf/', views.pdf, name="pdf_file"),
 		
+		
 
         
 ]

@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'crudapp',
     'rest_framework',
     'base',
+    'withoutajax',
+    'bothajax',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True   #django import and export
@@ -164,4 +166,11 @@ STATICFILES_DIRS = [
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale'), ]
 
-#step-1 template create 
+ 
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alamincmt7418@gmail.com'
+EMAIL_HOST_PASSWORD = 'hzqnxkqbgtmhbfxa'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
